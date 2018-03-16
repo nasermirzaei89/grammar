@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grammar</title>
+
+    <link href='//fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="//unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+</head>
+<body>
+<v-app id="app">
+    <v-toolbar color="primary" flat dark>
+        <v-toolbar-title>Grammar</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+        <v-container>
+            <v-layout row wrap>
+                <v-flex xs6 pa-1>
+                    <v-select
+                            :items="subjects"
+                            v-model="subject"
+                            label="Subject"
+                    ></v-select>
+                </v-flex>
+                <v-flex xs6 pa-1>
+                    <v-text-field
+                            v-model="verb"
+                            label="Verb"
+                    ></v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                </v-flex>
+            </v-layout>
+            <table width="100%" border="1" class="text-sm-center">
+                <caption class="title">Active Tenses</caption>
+                <tr>
+                    <th></th>
+                    <th>Past</th>
+                    <th>Future in Past</th>
+                    <th>Present</th>
+                    <th>Future</th>
+                </tr>
+                <tr>
+                    <th>Simple</th>
+                    <td>{{activeSimplePast}}</td>
+                    <td>{{activeSimpleFutureInPast}}</td>
+                    <td>{{activeSimplePresent}}</td>
+                    <td>{{activeSimpleFuture}}</td>
+                </tr>
+                <tr>
+                    <th>Continuous</th>
+                    <td>{{activeContinuousPast}}</td>
+                    <td>{{activeContinuousFutureInPast}}</td>
+                    <td>{{activeContinuousPresent}}</td>
+                    <td>{{activeContinuousFuture}}</td>
+                </tr>
+                <tr>
+                    <th>Perfect</th>
+                    <td>{{activePerfectPast}}</td>
+                    <td>{{activePerfectFutureInPast}}</td>
+                    <td>{{activePerfectPresent}}</td>
+                    <td>{{activePerfectFuture}}</td>
+                </tr>
+                <tr>
+                    <th>Perfect Continuous</th>
+                    <td>{{activePerfectContinuousPast}}</td>
+                    <td>{{activePerfectContinuousFutureInPast}}</td>
+                    <td>{{activePerfectContinuousPresent}}</td>
+                    <td>{{activePerfectContinuousFuture}}</td>
+                </tr>
+            </table>
+            <br>
+            <table width="100%" border="1" class="text-sm-center">
+                <caption class="title">Passive Tenses</caption>
+                <tr>
+                    <th></th>
+                    <th>Past</th>
+                    <th>Future in Past</th>
+                    <th>Present</th>
+                    <th>Future</th>
+                </tr>
+                <tr>
+                    <th>Simple</th>
+                    <td>{{passiveSimplePast}}</td>
+                    <td>{{passiveSimpleFutureInPast}}</td>
+                    <td>{{passiveSimplePresent}}</td>
+                    <td>{{passiveSimpleFuture}}</td>
+                </tr>
+                <tr>
+                    <th>Continuous</th>
+                    <td>{{passiveContinuousPast}}</td>
+                    <td bgcolor="#d3d3d3"></td>
+                    <td>{{passiveContinuousPresent}}</td>
+                    <td bgcolor="#d3d3d3"></td>
+                </tr>
+                <tr>
+                    <th>Perfect</th>
+                    <td>{{passivePerfectPast}}</td>
+                    <td>{{passivePerfectFutureInPast}}</td>
+                    <td>{{passivePerfectPresent}}</td>
+                    <td>{{passivePerfectFuture}}</td>
+                </tr>
+            </table>
+        </v-container>
+    </v-content>
+    <v-footer class="pa-3" dark color="primary">
+        <v-flex xs12 text-xs-center>Made with <span style="color: red">&hearts;</span> by <a style="color: white" href="//nasermirzaei89.net" target="_blank">Naser Mirzaei</a></v-flex>
+    </v-footer>
+</v-app>
+
+<script src="//unpkg.com/vue/dist/vue.min.js"></script>
+<script src="//unpkg.com/vuetify/dist/vuetify.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      isActive: false,
+      // Pronouns
+      subjects: ['I', 'You', 'He', 'She', 'We', 'They', 'It'],
+      subject: 'She',
+      verb: 'write',
+      irregulars: {
+        'awake': {SimplePastTense: 'awoke', PastParticiple: 'awoken'},
+        'be': {SimplePastTense: 'was/were', PastParticiple: 'been'},
+        'bear': {SimplePastTense: 'bore', PastParticiple: 'born'},
+        'beat': {SimplePastTense: 'beat', PastParticiple: 'beat'},
+        'become': {SimplePastTense: 'became', PastParticiple: 'become'},
+        'begin': {SimplePastTense: 'began', PastParticiple: 'begun'},
+        'bend': {SimplePastTense: 'bent', PastParticiple: 'bent'},
+        'beset': {SimplePastTense: 'beset', PastParticiple: 'beset'},
+        'bet': {SimplePastTense: 'bet', PastParticiple: 'bet'},
+        'bid': {SimplePastTense: 'bid/bade', PastParticiple: 'bid/bidden'},
+        'bind': {SimplePastTense: 'bound', PastParticiple: 'bound'},
+        'bite': {SimplePastTense: 'bit', PastParticiple: 'bitten'},
+        'bleed': {SimplePastTense: 'bled', PastParticiple: 'bled'},
+        'blow': {SimplePastTense: 'blew', PastParticiple: 'blown'},
+        'break': {SimplePastTense: 'broke', PastParticiple: 'broken'},
+        'breed': {SimplePastTense: 'bred', PastParticiple: 'bred'},
+        'bring': {SimplePastTense: 'brought', PastParticiple: 'brought'},
+        'broadcast': {SimplePastTense: 'broadcast', PastParticiple: 'broadcast'},
+        'build': {SimplePastTense: 'built', PastParticiple: 'built'},
+        'burn': {SimplePastTense: 'burned/burnt', PastParticiple: 'burned/burnt'},
+        'burst': {SimplePastTense: 'burst', PastParticiple: 'burst'},
+        'buy': {SimplePastTense: 'bought', PastParticiple: 'bought'},
+        'cast': {SimplePastTense: 'cast', PastParticiple: 'cast'},
+        'catch': {SimplePastTense: 'caught', PastParticiple: 'caught'},
+        'choose': {SimplePastTense: 'chose', PastParticiple: 'chosen'},
+        'cling': {SimplePastTense: 'clung', PastParticiple: 'clung'},
+        'come': {SimplePastTense: 'came', PastParticiple: 'come'},
+        'cost': {SimplePastTense: 'cost', PastParticiple: 'cost'},
+        'creep': {SimplePastTense: 'crept', PastParticiple: 'crept'},
+        'cut': {SimplePastTense: 'cut', PastParticiple: 'cut'},
+        'deal': {SimplePastTense: 'dealt', PastParticiple: 'dealt'},
+        'dig': {SimplePastTense: 'dug', PastParticiple: 'dug'},
+        'dive': {SimplePastTense: 'dived/dove', PastParticiple: 'dived'},
+        'do': {SimplePastTense: 'did', PastParticiple: 'done'},
+        'draw': {SimplePastTense: 'drew', PastParticiple: 'drawn'},
+        'dream': {SimplePastTense: 'dreamed/dreamt', PastParticiple: 'dreamed/dreamt'},
+        'drive': {SimplePastTense: 'drove', PastParticiple: 'driven'},
+        'drink': {SimplePastTense: 'drank', PastParticiple: 'drunk'},
+        'eat': {SimplePastTense: 'ate', PastParticiple: 'eaten'},
+        'fall': {SimplePastTense: 'fell', PastParticiple: 'fallen'},
+        'feed': {SimplePastTense: 'fed', PastParticiple: 'fed'},
+        'feel': {SimplePastTense: 'felt', PastParticiple: 'felt'},
+        'fight': {SimplePastTense: 'fought', PastParticiple: 'fought'},
+        'find': {SimplePastTense: 'found', PastParticiple: 'found'},
+        'fit': {SimplePastTense: 'fit', PastParticiple: 'fit'},
+        'flee': {SimplePastTense: 'fled', PastParticiple: 'fled'},
+        'fling': {SimplePastTense: 'flung', PastParticiple: 'flung'},
+        'fly': {SimplePastTense: 'flew', PastParticiple: 'flown'},
+        'forbid': {SimplePastTense: 'forbade', PastParticiple: 'forbidden'},
+        'forget': {SimplePastTense: 'forgot', PastParticiple: 'forgotten'},
+        'forego': {SimplePastTense: 'forewent', PastParticiple: 'foregone'},
+        'forgo': {SimplePastTense: 'forewent', PastParticiple: 'foregone'},
+        'forgive': {SimplePastTense: 'forgave', PastParticiple: 'forgiven'},
+        'forsake': {SimplePastTense: 'forsook', PastParticiple: 'forsaken'},
+        'freeze': {SimplePastTense: 'froze', PastParticiple: 'frozen'},
+        'get': {SimplePastTense: 'got', PastParticiple: 'gotten'},
+        'give': {SimplePastTense: 'gave', PastParticiple: 'given'},
+        'go': {SimplePastTense: 'went', PastParticiple: 'gone'},
+        'grind': {SimplePastTense: 'ground', PastParticiple: 'ground'},
+        'grow': {SimplePastTense: 'grew', PastParticiple: 'grown'},
+        'hang': {SimplePastTense: 'hung', PastParticiple: 'hung'},
+        'hear': {SimplePastTense: 'heard', PastParticiple: 'heard'},
+        'hide': {SimplePastTense: 'hid', PastParticiple: 'hidden'},
+        'hit': {SimplePastTense: 'hit', PastParticiple: 'hit'},
+        'hold': {SimplePastTense: 'held', PastParticiple: 'held'},
+        'hurt': {SimplePastTense: 'hurt', PastParticiple: 'hurt'},
+        'keep': {SimplePastTense: 'kept', PastParticiple: 'kept'},
+        'kneel': {SimplePastTense: 'knelt', PastParticiple: 'knelt'},
+        'knit': {SimplePastTense: 'knit', PastParticiple: 'knit'},
+        'know': {SimplePastTense: 'knew', PastParticiple: 'know'},
+        'lay': {SimplePastTense: 'laid', PastParticiple: 'laid'},
+        'lead': {SimplePastTense: 'led', PastParticiple: 'led'},
+        'leap': {SimplePastTense: 'leaped/leapt', PastParticiple: 'leaped/leapt'},
+        'learn': {SimplePastTense: 'learned/learnt', PastParticiple: 'learned/learnt'},
+        'leave': {SimplePastTense: 'left', PastParticiple: 'left'},
+        'lend': {SimplePastTense: 'lent', PastParticiple: 'lent'},
+        'let': {SimplePastTense: 'let', PastParticiple: 'let'},
+        'lie': {SimplePastTense: 'lay', PastParticiple: 'lain'},
+        'light': {SimplePastTense: 'lighted/lit', PastParticiple: 'lighted/lit'},
+        'lose': {SimplePastTense: 'lost', PastParticiple: 'lost'},
+        'make': {SimplePastTense: 'made', PastParticiple: 'made'},
+        'mean': {SimplePastTense: 'meant', PastParticiple: 'meant'},
+        'meet': {SimplePastTense: 'met', PastParticiple: 'met'},
+        'misspell': {SimplePastTense: 'misspelled/misspelt', PastParticiple: 'misspelled/misspelt'},
+        'mistake': {SimplePastTense: 'mistook', PastParticiple: 'mistaken'},
+        'mow': {SimplePastTense: 'mowed', PastParticiple: 'mowed/mown'},
+        'overcome': {SimplePastTense: 'overcame', PastParticiple: 'overcome'},
+        'overdo': {SimplePastTense: 'overdid', PastParticiple: 'overdone'},
+        'overtake': {SimplePastTense: 'overtook', PastParticiple: 'overtaken'},
+        'overthrow': {SimplePastTense: 'overthrew', PastParticiple: 'overthrown'},
+        'pay': {SimplePastTense: 'paid', PastParticiple: 'paid'},
+        'plead': {SimplePastTense: 'pleaded/pled', PastParticiple: 'pleaded/pled'},
+        'prove': {SimplePastTense: 'proved', PastParticiple: 'proved/proven'},
+        'put': {SimplePastTense: 'put', PastParticiple: 'put'},
+        'quit': {SimplePastTense: 'quit', PastParticiple: 'quit'},
+        'read': {SimplePastTense: 'read', PastParticiple: 'read'},
+        'rid': {SimplePastTense: 'rid', PastParticiple: 'rid'},
+        'ride': {SimplePastTense: 'rode', PastParticiple: 'ridden'},
+        'ring': {SimplePastTense: 'rang', PastParticiple: 'rung'},
+        'rise': {SimplePastTense: 'rose', PastParticiple: 'risen'},
+        'run': {SimplePastTense: 'ran', PastParticiple: 'run'},
+        'saw': {SimplePastTense: 'sawed', PastParticiple: 'sawed/sawn'},
+        'say': {SimplePastTense: 'said', PastParticiple: 'said'},
+        'see': {SimplePastTense: 'saw', PastParticiple: 'seen'},
+        'seek': {SimplePastTense: 'sought', PastParticiple: 'sought'},
+        'sell': {SimplePastTense: 'sold', PastParticiple: 'sold'},
+        'send': {SimplePastTense: 'sent', PastParticiple: 'sent'},
+        'set': {SimplePastTense: 'set', PastParticiple: 'set'},
+        'sew': {SimplePastTense: 'sewed', PastParticiple: 'sewed/sewn'},
+        'shake': {SimplePastTense: 'shook', PastParticiple: 'shaken'},
+        'shave': {SimplePastTense: 'shaved', PastParticiple: 'shaved/shaven'},
+        'shear': {SimplePastTense: 'sheared/shore', PastParticiple: 'sheared/shorn'},
+        'shed': {SimplePastTense: 'shed', PastParticiple: 'shed'},
+        'shine': {SimplePastTense: 'shone', PastParticiple: 'shone'},
+        'shoe': {SimplePastTense: 'shod', PastParticiple: 'shod'},
+        'shoot': {SimplePastTense: 'shot', PastParticiple: 'shot'},
+        'show': {SimplePastTense: 'showed', PastParticiple: 'showed/shown'},
+        'shrink': {SimplePastTense: 'shrank', PastParticiple: 'shrunk'},
+        'shut': {SimplePastTense: 'shut', PastParticiple: 'shut'},
+        'sing': {SimplePastTense: 'sang', PastParticiple: 'sung'},
+        'sink': {SimplePastTense: 'sank', PastParticiple: 'sunk'},
+        'sit': {SimplePastTense: 'sat', PastParticiple: 'sat'},
+        'sleep': {SimplePastTense: 'slept', PastParticiple: 'slept'},
+        'slay': {SimplePastTense: 'slew', PastParticiple: 'slain'},
+        'slide': {SimplePastTense: 'slid', PastParticiple: 'slid'},
+        'sling': {SimplePastTense: 'slung', PastParticiple: 'slung'},
+        'slit': {SimplePastTense: 'slit', PastParticiple: 'slit'},
+        'smite': {SimplePastTense: 'smote', PastParticiple: 'smitten'},
+        'sow': {SimplePastTense: 'sowed', PastParticiple: 'sowed/sown'},
+        'speak': {SimplePastTense: 'spoke', PastParticiple: 'spoken'},
+        'speed': {SimplePastTense: 'sped', PastParticiple: 'sped'},
+        'spend': {SimplePastTense: 'spent', PastParticiple: 'spent'},
+        'spill': {SimplePastTense: 'spilled/spilt', PastParticiple: 'spilled/spilt'},
+        'spin': {SimplePastTense: 'spun', PastParticiple: 'spun'},
+        'spit': {SimplePastTense: 'spit/spat', PastParticiple: 'spit'},
+        'split': {SimplePastTense: 'split', PastParticiple: 'split'},
+        'spread': {SimplePastTense: 'spread', PastParticiple: 'spread'},
+        'spring': {SimplePastTense: 'sprang/sprung', PastParticiple: 'sprung'},
+        'stand': {SimplePastTense: 'stood', PastParticiple: 'stood'},
+        'steal': {SimplePastTense: 'stole', PastParticiple: 'stolen'},
+        'stick': {SimplePastTense: 'stuck', PastParticiple: 'stuck'},
+        'sting': {SimplePastTense: 'stung', PastParticiple: 'stung'},
+        'stink': {SimplePastTense: 'stank', PastParticiple: 'stunk'},
+        'stride': {SimplePastTense: 'strode', PastParticiple: 'stridden'},
+        'strike': {SimplePastTense: 'struck', PastParticiple: 'struck'},
+        'string': {SimplePastTense: 'strung', PastParticiple: 'strung'},
+        'strive': {SimplePastTense: 'strove', PastParticiple: 'striven'},
+        'swear': {SimplePastTense: 'swore', PastParticiple: 'sworn'},
+        'sweep': {SimplePastTense: 'swept', PastParticiple: 'swept'},
+        'swell': {SimplePastTense: 'swelled', PastParticiple: 'swelled/swollen'},
+        'swim': {SimplePastTense: 'swam', PastParticiple: 'swum'},
+        'swing': {SimplePastTense: 'swung', PastParticiple: 'swung'},
+        'take': {SimplePastTense: 'took', PastParticiple: 'taken'},
+        'teach': {SimplePastTense: 'taught', PastParticiple: 'taught'},
+        'tear': {SimplePastTense: 'tore', PastParticiple: 'torn'},
+        'tell': {SimplePastTense: 'told', PastParticiple: 'told'},
+        'think': {SimplePastTense: 'thought', PastParticiple: 'thought'},
+        'thrive': {SimplePastTense: 'thrived/throve', PastParticiple: 'thrived'},
+        'throw': {SimplePastTense: 'threw', PastParticiple: 'thrown'},
+        'thrust': {SimplePastTense: 'thrust', PastParticiple: 'thrust'},
+        'tread': {SimplePastTense: 'trod', PastParticiple: 'trodden'},
+        'understand': {SimplePastTense: 'understood', PastParticiple: 'understood'},
+        'uphold': {SimplePastTense: 'upheld', PastParticiple: 'upheld'},
+        'upset': {SimplePastTense: 'upset', PastParticiple: 'upset'},
+        'wake': {SimplePastTense: 'woke', PastParticiple: 'woken'},
+        'wear': {SimplePastTense: 'wore', PastParticiple: 'worn'},
+        'weave': {SimplePastTense: 'weaved/wove', PastParticiple: 'weaved/woven'},
+        'wed': {SimplePastTense: 'wed', PastParticiple: 'wed'},
+        'weep': {SimplePastTense: 'wept', PastParticiple: 'wept'},
+        'wind': {SimplePastTense: 'wound', PastParticiple: 'wound'},
+        'win': {SimplePastTense: 'won', PastParticiple: 'won'},
+        'withhold': {SimplePastTense: 'withheld', PastParticiple: 'withheld'},
+        'withstand': {SimplePastTense: 'withstood', PastParticiple: 'withstood'},
+        'wring': {SimplePastTense: 'wrung', PastParticiple: 'wrung'},
+        'write': {SimplePastTense: 'wrote', PastParticiple: 'written'}
+      }
+    },
+    watch: {
+      verb: function (v) {
+        this.verb = v.toLowerCase()
+      }
+    },
+    computed: {
+      // TODO: Check validation: length and case
+      activeSimplePresent: function () {
+        var v = this.verb
+        if (this.isSingularSubject(this.subject)) {
+          v = this.singularVerbPresentSimple(v)
+        }
+
+        return this.subject + ' ' + v
+      },
+      activeSimpleFuture: function () {
+        return this.subject + ' will ' + this.verb
+      },
+      activeSimpleFutureInPast: function () {
+        return this.subject + ' would ' + this.verb
+      },
+      activeSimplePast: function () {
+        return this.subject + ' ' + this.simplePastVerb(this.verb)
+      },
+
+      activeContinuousPresent: function () {
+        return this.subject + ' ' + this.amIsAre(this.subject) + ' ' + this.continuousVerb(this.verb)
+      },
+      activeContinuousFuture: function () {
+        return this.subject + ' will be ' + this.continuousVerb(this.verb)
+      },
+      activeContinuousFutureInPast: function () {
+        return this.subject + ' would be ' + this.continuousVerb(this.verb)
+      },
+      activeContinuousPast: function () {
+        return this.subject + ' ' + this.wasWere(this.subject) + ' ' + this.continuousVerb(this.verb)
+      },
+
+      activePerfectPresent: function () {
+        return this.subject + ' ' + this.haveHas(this.subject) + ' ' + this.pastParticipleVerb(this.verb)
+      },
+      activePerfectFuture: function () {
+        return this.subject + ' will have ' + this.pastParticipleVerb(this.verb)
+      },
+      activePerfectFutureInPast: function () {
+        return this.subject + ' would have ' + this.pastParticipleVerb(this.verb)
+      },
+      activePerfectPast: function () {
+        return this.subject + ' had ' + this.pastParticipleVerb(this.verb)
+      },
+      activePerfectContinuousPresent: function () {
+        return this.subject + ' ' + this.haveHas(this.subject) + ' been ' + this.continuousVerb(this.verb)
+      },
+      activePerfectContinuousFuture: function () {
+        return this.subject + ' will have been ' + this.continuousVerb(this.verb)
+      },
+      activePerfectContinuousFutureInPast: function () {
+        return this.subject + ' would have been ' + this.continuousVerb(this.verb)
+      },
+      activePerfectContinuousPast: function () {
+        return this.subject + ' had been ' + this.continuousVerb(this.verb)
+      },
+
+      passiveSimplePresent: function () {
+        return this.subject + ' ' + this.amIsAre(this.subject) + ' ' + this.pastParticipleVerb(this.verb)
+      },
+      passiveSimpleFuture: function () {
+        return this.subject + ' will be ' + this.pastParticipleVerb(this.verb)
+      },
+      passiveSimpleFutureInPast: function () {
+        return this.subject + ' would be ' + this.pastParticipleVerb(this.verb)
+      },
+      passiveSimplePast: function () {
+        return this.subject + ' ' + this.wasWere(this.subject) + ' ' + this.pastParticipleVerb(this.verb)
+      },
+
+      passiveContinuousPresent: function () {
+        return this.subject + ' ' + this.amIsAre(this.subject) + ' being ' + this.pastParticipleVerb(this.verb)
+      },
+      passiveContinuousPast: function () {
+        return this.subject + ' ' + this.wasWere(this.subject) + ' being ' + this.pastParticipleVerb(this.verb)
+      },
+
+      passivePerfectPresent: function () {
+        return this.subject + ' ' + this.haveHas(this.subject) + ' been ' + this.pastParticipleVerb(this.verb)
+      },
+      passivePerfectFuture: function () {
+        return this.subject + ' will have been ' + this.pastParticipleVerb(this.verb)
+      },
+      passivePerfectFutureInPast: function () {
+        return this.subject + ' would have been ' + this.pastParticipleVerb(this.verb)
+      },
+      passivePerfectPast: function () {
+        return this.subject + ' had been ' + this.pastParticipleVerb(this.verb)
+      }
+    },
+    methods: {
+      isSingularSubject: function (s) {
+        return (s === 'He' || s === 'She' || s === 'It')
+      },
+      isVowel: function (l) {
+        return (l === 'a' || l === 'e' || l === 'i' || l === 'o' || l === 'u')
+      },
+
+      amIsAre: function (s) {
+        if (s === 'I') return 'am'
+        if (this.isSingularSubject(s)) return 'is'
+        return 'are'
+      },
+      wasWere: function (s) {
+        if (this.isSingularSubject(s) || s === 'I') return 'was'
+        return 'were'
+      },
+      haveHas: function (s) {
+        if (this.isSingularSubject(s)) return 'has'
+        return 'have'
+      },
+
+      singularVerbPresentSimple: function (v) {
+        if (v.endsWith('ss') || v.endsWith('ch') || v.endsWith('x') || v.endsWith('sh') || v.endsWith('zz')) {
+          return v + 'es'
+        }
+
+        if (v.endsWith('y')) {
+          return v.slice(0, -1) + 'ies'
+        }
+
+        return v + 's'
+      },
+
+      simplePastVerb: function (v) {
+        for (var k in this.irregulars) {
+          if (k === v) {
+            return this.irregulars[k].SimplePastTense
+          }
+        }
+
+        var last = v.slice(-1)
+        var slast = v.slice(-2).slice(0, -1)
+
+        if (last === 'e') {
+          return v + 'd'
+        }
+        if ((last === 'y' || last === 'w') && this.isVowel(slast)) {
+          return v + 'ed'
+        }
+
+        if (last === 'y') {
+          return v.slice(0, -1) + 'ied'
+        }
+
+        return v + 'ed'
+      },
+      pastParticipleVerb: function (v) {
+        for (var k in this.irregulars) {
+          if (k === v) {
+            return this.irregulars[k].PastParticiple
+          }
+        }
+
+        return v + 'ed'
+      },
+
+      continuousVerb: function (v) {
+        var last = v.slice(-1)
+        if (last === 'e') {
+          return v.slice(0, -1) + 'ing'
+        }
+
+        return v + 'ing'
+      }
+    }
+  })
+</script>
+</body>
+</html>
